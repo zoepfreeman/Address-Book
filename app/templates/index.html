@@ -4,6 +4,10 @@
 
 {% block content %}
 
-    <h1>Welcome to the Address Book</h1>
+{% if current_user.is_authenticated %}
+    <h1 class="text-center">Welcome Back, {{ current_user.username }}!</h1>
+{% else %}
+    <h1 class="text-center">Hello World</h1>
+{% endif %}
 
 {% endblock %}
