@@ -16,10 +16,12 @@ def signup():
     if form.validate_on_submit():
         print('Form Submitted and Validated!')
         # Get data from the form
+        firstname = form.firstname.data
+        lastname = form.lastname.data
         email = form.email.data
         username = form.username.data
         password = form.password.data
-        print(email, username, password)
+        #print(email, username, password)
         # Query our user table to see if there are any users with either username or email from form
         check_user = User.query.filter( (User.username == username) | (User.email == email) ).all()
         # If the query comes back with any results
@@ -28,7 +30,7 @@ def signup():
             flash('A user with that email and/or username already exists.', 'danger')
             return redirect(url_for('signup'))
         # If check_user is empty, create a new record in the user table
-        new_user = User(email=email, username=username, password=password)
+        new_user = User(firstname=firstname, lastname=lastname, email=email, username=username, password=password)
         # Flash a success message
         flash(f'Thank you {new_user.username} for signing up!', 'success')
         # Redirect back to Home
