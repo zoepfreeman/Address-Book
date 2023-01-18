@@ -1,8 +1,8 @@
 from app import app
 from flask import render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user
-from app.forms import SignUpForm, LoginForm
-from app.models import User
+from flask_login import login_user, logout_user, current_user
+from app.forms import SignUpForm, LoginForm, AddressForm
+from app.models import User, Addres
 
 @app.route('/')
 def index():
@@ -65,3 +65,17 @@ def logout():
     logout_user()
     flash("You have been logged out", "warning")
     return redirect(url_for('index'))
+
+@app.route('/addaddress', methods=["GET", "POST"])
+def addaddress():
+    form = AddressForm()
+    if form.validate_on_submit():
+        print('Form submitted and validated!')
+        firstname = form.firstname.data
+        lastname = form.lastname.data
+        phone = form.phone.data
+        address = form.address.data
+        new_address = Addres(firstname=firstname, lastname=lastname, phone=phone, address=address, user_id=current_user.id)
+        flash(f'{new_address.firstname} {new_address.lastname} has been added to the Address Book!', 'success')
+        return redirect(url_for('index'))
+    return render_template('addaddress.html',form=form)
