@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit {{ address.firstname }} {{ address.lastname }}'s Information' {% endblock %}
+
+{% block content %}
+
+<form action="" class="bg-white rounded mt-3 p-5" method="post">
+    <h1 class="text-center">Edit Address</h1>
+    {{ form.csrf_token }}
+
+    {{ form.firstname.label }}
+    {{ form.firstname(class='form-control') }}
+
+    {{ form.lastname.label }}
+    {{ form.lastname(class='form-control') }}
+
+    {{ form.phone.label }}
+    {{ form.phone(class='form-control') }}
+
+    {{ form.address.label }}
+    {{ form.address(class='form-control') }}
+
+    {{ form.submit(class='btn btn-primary w-100 mt-3') }}
+</form>
+
+{% endblock %}

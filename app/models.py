@@ -46,3 +46,17 @@ class Addres(db.Model):
     def __repr__(self):
         return f"<Addres {self.id} | {self.lastname}>"
 
+    def update(self, **kwargs):
+        # for each key value that comes in as a keyword
+        for key, value in kwargs.items():
+            # if the key is an acceptable
+            if key in {'firstname', 'lastname', 'phone', 'address'}:
+                # Set that attribute on the instance e.g post.title = 'Updated Title'
+                setattr(self, key, value)
+        # Save the updates to the database
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
